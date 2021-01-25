@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    <title>index-v5</title>
+    <title>index-v6</title>
     <script src="https://unpkg.com/react@16.14.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.12.12/babel.min.js"></script>
@@ -10,6 +10,41 @@
   <body>
     <div id="app"></div>
     <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {value: ""};
+          this.handleChange = this.handleChange.bind(this);
+        }
+        handleChange(evt) {
+          this.setState({value: evt.target.value});
+        }
+        render() {
+          return (
+            <div>
+              <InputForm value={this.state.value} handle={this.handleChange} />
+              <Welcome value={this.state.value} />
+            </div>
+          );
+        }
+      }
+      class InputForm extends React.Component {
+        render() {
+          return (
+            <input
+              type="text"
+              value={this.props.value}
+              onChange={this.props.handle}
+            />
+          );
+        }
+      }
+      class Welcome extends React.Component {
+        render() {
+          return <h1>Hello, {this.props.value}</h1>;
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
     </script>
   </body>
 </html>
